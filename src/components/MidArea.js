@@ -16,7 +16,7 @@ export default function MidArea({
         <div className="font-bold">{"Drop Events"}</div>{" "}
         <Tooltip
           borderRadius={"5px"}
-          label="Delete current set of actions."
+          label="Delete current set of actions to save it in the history."
           bg="red.600"
           placement="auto-start"
         >

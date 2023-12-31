@@ -2,8 +2,15 @@ import React, { useEffect, useState } from "react";
 import CatSprite from "./CatSprite";
 import { BsArrowsVertical, BsArrows } from "react-icons/bs";
 import "../CSS/PreviewArea.css";
-import { Box, Button, Text, Tooltip, useDisclosure } from "@chakra-ui/react";
-import { blue, white } from "tailwindcss/colors";
+import {
+  Box,
+  Button,
+  Text,
+  Tooltip,
+  useDisclosure,
+  useToast,
+} from "@chakra-ui/react";
+import { blue, green, white } from "tailwindcss/colors";
 import { FaHistory } from "react-icons/fa";
 import HistoryModal from "./HistoryModal.js";
 
@@ -13,10 +20,14 @@ export default function PreviewArea({
   history,
   catSize,
   setCatSize,
+  handleRestore,
+  show,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [xaxis, setXaxis] = useState(0);
   const [yaxis, setyaxis] = useState(0);
+
+  const toast = useToast();
 
   useEffect(() => {
     setCat(document.querySelector(".cat"));
@@ -28,7 +39,7 @@ export default function PreviewArea({
 
   function handleSizeChange() {
     cat && (cat.style.width = "50px !important");
-    console.log("first");
+    // console.log("first");
   }
 
   function handleReset() {
@@ -104,13 +115,27 @@ export default function PreviewArea({
   }
 
   return (
-    <div className="h-full overflow-y-auto pr-2 preview-main-container">
+    <div
+      name="preview"
+      className="h-full overflow-y-auto pr-2 preview-main-container"
+    >
       <div className="flex flex-col ">
         <div className="border relative bg-white preview-action-container cat-container">
           <div
             style={{ width: "fit-content" }}
             className="cat w-fit transition-all ease-linear duration-300"
           >
+            {show.show && (
+              <Box
+                bg={green[300]}
+                textAlign={"center"}
+                color={"white"}
+                borderRadius={"5px"}
+                fontWeight={500}
+              >
+                {show.value}
+              </Box>
+            )}
             <CatSprite catSize={catSize} />
           </div>
         </div>
@@ -186,6 +211,7 @@ export default function PreviewArea({
                 color={white}
                 bg={blue[700]}
                 onClick={onOpen}
+                className="historyBtn"
               >
                 <FaHistory /> <Text mb={"3px"}>History</Text>
               </Button>
@@ -198,6 +224,7 @@ export default function PreviewArea({
             isOpen={isOpen}
             onClose={onClose}
             onOpen={onOpen}
+            handleRestore={handleRestore}
           />
         </div>
       </div>

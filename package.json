@@ -2,9 +2,11 @@
   "name": "scratch-starter-project",
   "version": "0.1.0",
   "private": true,
+  "Homepage": ".",
   "scripts": {
     "start": "webpack serve --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js"
+    "build": "webpack --config webpack.prod.js",
+    "sheild": "react-scripts build"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.8.2",
@@ -15,6 +17,8 @@
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
     "react-icons": "^4.12.0",
+    "react-scripts": "^5.0.1",
+    "react-scroll": "^1.9.0",
     "tailwindcss": "^2.0.1",
     "uuid": "^9.0.1"
   },

@@ -16,6 +16,7 @@ export default function App() {
   const [actionCards, setActionCards] = useState([]);
   const [catSize, setCatSize] = useState("medium");
   const [history, setHistory] = useState([]);
+  const [show, setShow] = useState({ show: false, value: "" });
 
   useEffect(() => {
     initializeCat();
@@ -26,8 +27,10 @@ export default function App() {
   }
 
   function handleSetDelete() {
-    setHistory([...history, actionCards]);
-    setActionCards([]);
+    if (actionCards.length > 0) {
+      setHistory([...history, actionCards]);
+      setActionCards([]);
+    }
   }
 
   function handleCatMove() {
@@ -38,7 +41,6 @@ export default function App() {
     catStyle.top += 20;
     cat.style.top = `${catStyle.top}px`;
     setCatStyle(catStyle);
-    console.log(cat.style.top);
   }
 
   function rotateDeg(direction, value = 15) {
@@ -56,11 +58,11 @@ export default function App() {
     catStyle.deg = rotateBy;
     cat.style.transform = `rotate(${rotateBy}deg)`;
     setCatStyle(catStyle);
-    console.log(cat.style.transform);
+    // console.log(cat.style.transform);
   }
 
   function handleDataOrder(result) {
-    console.log(result, "dragResult");
+    // console.log(result, "dragResult");
     if (result && result.destination && result.source) {
       if (
         result.destination.droppableId === "actionDrop" &&
@@ -83,7 +85,7 @@ export default function App() {
   function handleDragResultChange(result) {
     const newCardsList = [...cards];
     const [removed] = newCardsList.splice(result.source?.index, 1);
-    console.log(removed);
+    // console.log(removed);
     newCardsList.splice(result.destination?.index, 0, removed);
     setCards(newCardsList);
   }
@@ -91,7 +93,7 @@ export default function App() {
   function handleDropToMidArea(result) {
     const dropped = cards[result.source.index];
     const newList = [...actionCards, { ...dropped, id: uuid() }];
-    console.log(newList, "NEW");
+    // console.log(newList, "NEW");
     setActionCards(newList);
   }
 
@@ -101,9 +103,27 @@ export default function App() {
     setActionCards(filterList);
   }
 
-  function handlePlayActions() {
+  function handlePlayActions(playNthSet) {
     // console.log(actionCards, "actions");
-    actionCards.forEach((card, index) => {
+    // console.log(playNthSet);
+    let actionSetArray = [...actionCards];
+    if (playNthSet) {
+      if (history.length === 0) {
+        toast({
+          title: "No set available in the history.",
+          description:
+            "Delete the current action set from the Drag Events container to save it in the history.",
+          duration: 9000,
+          isClosable: true,
+          position: "top-right",
+          status: "error",
+        });
+        return;
+      }
+      actionSetArray = [...history[history.length - 1]];
+    }
+
+    actionSetArray.forEach((card, index) => {
       const type = card.type;
       const direction = card?.direction;
       const actionValue = card?.actionValue;
@@ -113,8 +133,15 @@ export default function App() {
     });
   }
 
+  function say(value) {
+    setShow({ ...show, show: true, value });
+    setTimeout(() => {
+      setShow({ ...show, show: false, value: "" });
+    }, 3000);
+  }
+
   function play(type, direction, value = 20) {
-    console.log(type, direction, value);
+    // console.log(type, direction, value);
     switch (type) {
       case "Move": {
         const currentXposi = cat.offsetLeft;
@@ -147,6 +174,11 @@ export default function App() {
         return;
       }
 
+      case "Say": {
+        say(value);
+        return;
+      }
+
       default: {
         return;
       }
@@ -174,8 +206,8 @@ export default function App() {
     const currentXposi = cat.offsetLeft;
     const currentYposi = cat.offsetTop;
 
-    console.log(containerHeight, containerWidth, "height", "weidth");
-    console.log(yaxis, xaxis, "yaxis", "xaxis");
+    // console.log(containerHeight, containerWidth, "height", "weidth");
+    // console.log(yaxis, xaxis, "yaxis", "xaxis");
 
     if (Number(xaxis) && Number(xaxis) < 0) {
       cat.style.left = `0px`;
@@ -193,7 +225,7 @@ export default function App() {
         xbuffer = 150;
       }
 
-      console.log(cat.style.left, "LEFT", xaxis);
+      // console.log(cat.style.left, "LEFT", xaxis);
 
       cat.style.left = `${
         Number(xaxis + currentXposi) > containerWidth
@@ -201,7 +233,7 @@ export default function App() {
           : Number(xaxis)
       }px`;
 
-      console.log(cat.style.left, "LEFT");
+      // console.log(cat.style.left, "LEFT");
     }
 
     if (Number(yaxis) >= 0) {
@@ -217,7 +249,7 @@ export default function App() {
         return;
       }
 
-      console.log(cat.style.top, "TOP", yaxis);
+      // console.log(cat.style.top, "TOP", yaxis);
 
       cat.style.top = `${
         Number(yaxis + currentYposi) > containerHeight
@@ -225,8 +257,12 @@ export default function App() {
           : Number(yaxis)
       }px`;
 
-      console.log(cat.style.top, "TOP");
+      // console.log(cat.style.top, "TOP");
     }
+  }
+
+  function handleRestore(set) {
+    setActionCards([...set]);
   }
 
   return (
@@ -245,6 +281,7 @@ export default function App() {
               handleCatMove={handleCatMove}
               rotateDeg={rotateDeg}
               cards={cards}
+              say={say}
               handlePlayActions={handlePlayActions}
             />
             <MidArea
@@ -255,12 +292,14 @@ export default function App() {
           </div>
           <div className="preview">
             <PreviewArea
+              show={show}
               setCat={setCat}
               cat={cat}
               handleXYAxis={handleXYAxis}
               catSize={catSize}
               setCatSize={setCatSize}
               history={history}
+              handleRestore={handleRestore}
             />
           </div>
         </div>

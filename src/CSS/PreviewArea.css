@@ -34,3 +34,9 @@
 .preview-action-container {
     border-radius: 15px;
 }
+
+@media screen and (max-width:500px) {
+    .historyBtn {
+        margin-bottom: 2rem;
+    }
+}
