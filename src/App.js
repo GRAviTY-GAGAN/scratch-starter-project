@@ -22,6 +22,10 @@ export default function App() {
     initializeCat();
   }, [cat]);
 
+  useEffect(() => {
+    // cat && handleXYAxis(cat.offSetLeft, cat.offSetTop, catSize);
+  }, [catSize]);
+
   function initializeCat() {
     cat && (cat.style.position = "absolute");
   }
@@ -37,6 +41,26 @@ export default function App() {
     if (!catStyle.hasOwnProperty("top")) {
       catStyle["top"] = 0;
       catStyle.top += 20;
+    }
+
+    let buffer = 100;
+    if (catSize === "small") {
+      buffer = 80;
+    } else if (catSize === "big") {
+      buffer = 150;
+    }
+
+    if (
+      cat.offsetTop + buffer + 20 >=
+      document.querySelector(".cat-container").offsetHeight
+    ) {
+      cat.style.top = `${
+        document.querySelector(".cat-container").offsetHeight - buffer
+      }px`;
+      catStyle.top =
+        document.querySelector(".cat-container").offsetHeight - buffer;
+      setCatStyle(catStyle);
+      return;
     }
     catStyle.top += 20;
     cat.style.top = `${catStyle.top}px`;
