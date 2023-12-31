@@ -1,0 +1,70 @@
+export const actionData = [
+  {
+    id: 1,
+    value: "Move left by 20",
+    type: "Move",
+    direction: "left",
+    actionValue: 60,
+  },
+  {
+    id: 2,
+    value: "Move right by 20",
+    type: "Move",
+    direction: "right",
+    actionValue: 60,
+  },
+  {
+    id: 3,
+    value: "Move up by 20",
+    type: "Move",
+    direction: "up",
+    actionValue: 60,
+  },
+  {
+    id: 4,
+    value: "Move down by 20",
+    type: "Move",
+    direction: "down",
+    actionValue: 60,
+  },
+  {
+    id: 5,
+    value: "Rotate right by 15deg",
+    type: "Rotate",
+    direction: "right",
+    actionValue: 15,
+  },
+  {
+    id: 6,
+    value: "Rotate left by 15deg",
+    type: "Rotate",
+    direction: "left",
+    actionValue: 15,
+  },
+  {
+    id: 7,
+    value: "Rotate right by 360deg",
+    type: "Rotate",
+    direction: "right",
+    actionValue: 360,
+  },
+  {
+    id: 8,
+    value: "Rotate left by 360deg",
+    type: "Rotate",
+    direction: "left",
+    actionValue: 360,
+  },
+  { id: 9, value: "Say Hello", type: "Say", actionValue: "Hello" },
+  { id: 10, value: "Size Medium", type: "Size", actionValue: "medium" },
+  { id: 11, value: "Size Big", type: "Size", actionValue: "big" },
+  { id: 12, value: "Size Small", type: "Size", actionValue: "small" },
+];
+
+export const cardsData = [
+  { id: 11, value: "card 1" },
+  { id: 2, value: "card 2" },
+  { id: 33, value: "card 3" },
+  { id: 4, value: "card 4" },
+  { id: 53, value: "card 5" },
+];

@@ -1,0 +1,51 @@
+.side-card {
+    padding: 5px;
+    text-align: center;
+    background: orange;
+    border-radius: 5px;
+    color: white;
+    font-weight: 500;
+    width: 12rem;
+    margin-bottom: 10px;
+    font-size: small;
+}
+
+.side-action-container {
+    margin-top: 1rem;
+}
+
+.header {
+    word-spacing: 5px;
+}
+
+.sidebar-main-container {
+    margin-left: 1rem;
+    border-radius: 15px;
+    height: 870px !important;
+}
+
+@media screen and (min-width:501px) and (max-width: 1050px) {
+    .sidebar-main-container {
+        width: 18rem !important;
+        padding: 2rem !important;
+    }
+}
+
+@media screen and (max-width: 500px) {
+
+    * {
+        font-size: x-small;
+    }
+
+    .side-card {
+        width: 14rem;
+        font-size: x-small;
+    }
+
+    .sidebar-main-container {
+        margin-left: 0.5rem;
+        width: 18rem !important;
+        font-size: x-small;
+    }
+
+}

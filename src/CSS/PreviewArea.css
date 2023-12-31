@@ -1,0 +1,36 @@
+.form {
+    background-color: #E9F1FC;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.input {
+    background-color: white;
+}
+
+.reset-button {
+    padding: 0rem 1rem;
+    background-color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    background-color: rgb(243, 60, 60);
+    font-weight: 500;
+}
+
+.size div {
+    background-color: rgb(41, 117, 249);
+    padding: 0 1rem;
+    color: white;
+    border-radius: 5px;
+    padding-bottom: 2px;
+    cursor: pointer;
+}
+
+.cat-container {
+    height: 700px;
+}
+
+.preview-action-container {
+    border-radius: 15px;
+}
