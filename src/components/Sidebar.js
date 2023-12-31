@@ -33,25 +33,29 @@ export default function Sidebar({
           </div>
         </Tooltip>
       </Link>
-      <div
-        onClick={() => say("Hello!")}
-        className="flex flex-row flex-wrap bg-yellow-500 text-white px-2 py-1 my-2 text-sm cursor-pointer"
-      >
-        {"Say Hello!"}
-      </div>
-      <Tooltip
-        bg={"#855CD6"}
-        color={white}
-        placement="auto-start"
-        label="Repeat the nth-1 action set if available in the history"
-      >
+      <Link to="preview" smooth={true}>
         <div
-          onClick={() => handlePlayActions(true)}
+          onClick={() => say("Hello!")}
           className="flex flex-row flex-wrap bg-yellow-500 text-white px-2 py-1 my-2 text-sm cursor-pointer"
         >
-          {"Repeat"}
+          {"Say Hello!"}
         </div>
-      </Tooltip>
+      </Link>
+      <Link to="preview" smooth={true}>
+        <Tooltip
+          bg={"#855CD6"}
+          color={white}
+          placement="auto-start"
+          label="Repeat the nth-1 action set if available in the history"
+        >
+          <div
+            onClick={() => handlePlayActions(true)}
+            className="flex flex-row flex-wrap bg-yellow-500 text-white px-2 py-1 my-2 text-sm cursor-pointer"
+          >
+            {"Repeat"}
+          </div>
+        </Tooltip>
+      </Link>
       <div className="font-bold"> {"Motion"} </div>
       <div
         onClick={handleCatMove}
