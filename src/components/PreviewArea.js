@@ -45,6 +45,7 @@ export default function PreviewArea({
 
   function handleReset() {
     if (cat) {
+      cat.style.transform = `rotate(0deg)`;
       setXaxis(0);
       setyaxis(0);
       setCatSize("medium");
