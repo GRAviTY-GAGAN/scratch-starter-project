@@ -21,11 +21,12 @@ export default function PreviewArea({
   catSize,
   setCatSize,
   handleRestore,
+  handlePlayActions,
   show,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [xaxis, setXaxis] = useState(0);
-  const [yaxis, setyaxis] = useState(0);
+  let [xaxis, setXaxis] = useState(0);
+  let [yaxis, setyaxis] = useState(0);
 
   const toast = useToast();
 
@@ -47,13 +48,19 @@ export default function PreviewArea({
       setXaxis(0);
       setyaxis(0);
       setCatSize("medium");
+      handleForm("", true);
     }
   }
 
-  function handleForm(e) {
-    e.preventDefault();
+  function handleForm(e, reset) {
+    e && e.preventDefault();
 
     // handleXYAxis(xaxis, yaxis, catSize);
+
+    if (reset) {
+      xaxis = 0;
+      yaxis = 0;
+    }
 
     if (isNaN(Number(xaxis)) || isNaN(Number(yaxis))) {
       toast({
@@ -200,7 +207,13 @@ export default function PreviewArea({
           </form>
         </div>
         <div>
-          <Box display={"flex"} justifyContent={"center"} mt={"2rem"}>
+          <Box
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            gap={"1rem"}
+            mt={"2rem"}
+          >
             <Tooltip bg={blue[500]} label="History of deleted set of actions">
               <Button
                 display={"flex"}
@@ -216,6 +229,22 @@ export default function PreviewArea({
                 <FaHistory /> <Text mb={"3px"}>History</Text>
               </Button>
             </Tooltip>
+            <Button
+              display={"flex"}
+              gap={"0.5rem"}
+              alignItems={"center"}
+              justifyContent={"center"}
+              _hover={{ bg: blue[700] }}
+              pb={"5px"}
+              color={white}
+              bg={blue[700]}
+              onClick={() => handlePlayActions()}
+              className="flex flex-row flex-wrap bg-yellow-500 text-white px-2 py-1 my-2 text-sm cursor-pointer"
+            >
+              {"Play"}
+              {/* <Icon name="flag" size={15} className="text-green-600 mx-2" /> */}
+              {""}
+            </Button>
           </Box>
         </div>
         <div>

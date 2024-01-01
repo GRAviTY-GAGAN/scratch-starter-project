@@ -324,6 +324,7 @@ export default function App() {
               setCatSize={setCatSize}
               history={history}
               handleRestore={handleRestore}
+              handlePlayActions={handlePlayActions}
             />
           </div>
         </div>
